@@ -1,5 +1,5 @@
 import { filter, flow, map, max, sum } from 'lodash/fp';
-import { lines, toInt } from './common';
+import { lines, product, toInt } from './common';
 
 const solve1 = ( input: string ) =>
 	flow(
@@ -52,8 +52,7 @@ const biggestBag = ( g: Game ): Bag => [
 
 const id = ( g: Game ): number => g.id;
 
-const power = ( g: Game ): number =>
-	biggestBag( g ).reduce( ( r, n ) => r * n, 1 );
+const power = ( g: Game ): number => product( biggestBag( g ) );
 
 // ====
 // MAIN
