@@ -1,5 +1,5 @@
 import { first, flow, last, map, sum } from 'lodash/fp';
-import { lines } from './common';
+import { lines, toInt } from './common';
 
 const solve1 = ( input: string ) =>
 	flow( lines, map( flow( digits, bounds, toInt ) ), sum )( input );
@@ -27,9 +27,6 @@ const bounds = ( ds: ReadonlyArray< Digit > ): [ Digit, Digit ] => [
 	first( ds ) || '0',
 	last( ds ) || '0',
 ];
-
-const toInt = ( ds: ReadonlyArray< Digit > ): number =>
-	Number.parseInt( ds.join( '' ) );
 
 const nums: ReadonlyArray< [ string, string ] > = [
 	[ 'one', '1' ],
