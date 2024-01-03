@@ -1,11 +1,20 @@
 import { filter, flatMap, flow, map, reduce, some, sum } from 'lodash/fp';
-import { chars, len, lines, parallel, product, snd, toInt } from './common';
+import {
+	chars,
+	dot,
+	len,
+	lines,
+	parallel,
+	product,
+	snd,
+	toInt,
+} from './common';
 
 const solve1 = ( input: string ) =>
 	flow(
 		numbers,
 		filter( adjacent( marks( input ) ) ),
-		map( value ),
+		map( dot( 'v' ) ),
 		sum
 	)( input );
 
@@ -14,7 +23,7 @@ const solve2 = ( input: string ) =>
 		parallel( flow( marks, filter( gear ) ), numbers ),
 		mapMarksToAdjacentNumbers,
 		filter( len( 2 ) ),
-		map( flow( map( value ), product ) ),
+		map( flow( map( dot( 'v' ) ), product ) ),
 		sum
 	)( input );
 
@@ -93,8 +102,6 @@ const adjacent =
 				between( n.l - 1, n.l + 1 )( m.l ) &&
 				between( n.r[ 0 ] - 1, n.r[ 1 ] + 1 )( m.c )
 		)( ms );
-
-const value = ( n: Number ): number => n.v;
 
 const isSym = ( s: string ): boolean => /^[^\d.]$/.test( s );
 

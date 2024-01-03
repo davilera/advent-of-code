@@ -1,5 +1,12 @@
 import { trim } from 'lodash/fp';
 
+export const dot =
+	< T extends Record< string, any >, K extends keyof T >(
+		k: K
+	): ( ( o: T ) => T[ K ] ) =>
+	( o ) =>
+		o[ k ];
+
 export const len =
 	( l: number ): ( ( a: string | any[] ) => boolean ) =>
 	( a ) =>

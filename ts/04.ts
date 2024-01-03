@@ -1,5 +1,5 @@
 import { filter, flow, map, range, reduce, slice, sum } from 'lodash/fp';
-import { lines, toInt, words } from './common';
+import { dot, lines, toInt, words } from './common';
 
 const solve1 = ( input: string ) =>
 	flow( lines, map( flow( mkCard, matches, score ) ), sum )( input );
@@ -9,7 +9,7 @@ const solve2 = ( input: string ) =>
 		lines,
 		map( flow( mkCard, matches, mkInstance ) ),
 		redeemCards,
-		map( instances ),
+		map( dot( 'instances' ) ),
 		sum
 	)( input );
 
@@ -70,8 +70,6 @@ const redeemCards = (
 		wis,
 		range( 0, wis.length )
 	);
-
-const instances = ( wi: WinnerInstance ): number => wi.instances;
 
 const split = < T >( i: number, a: ReadonlyArray< T > ): [ T[], T, T[] ] => [
 	slice( 0, i, a ),

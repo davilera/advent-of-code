@@ -1,17 +1,17 @@
 import { filter, flow, map, max, sum } from 'lodash/fp';
-import { lines, product, toInt } from './common';
+import { dot, lines, product, toInt } from './common';
 
 const solve1 = ( input: string ) =>
 	flow(
 		lines,
 		map( game ),
 		filter( possible( [ 12, 13, 14 ] ) ),
-		map( id ),
+		map( dot( 'id' ) ),
 		sum
 	)( input );
 
 const solve2 = ( input: string ): number =>
-	flow( lines, map( game ), map( power ), sum )( input );
+	flow( lines, map( flow( game, biggestBag, product ) ), sum )( input );
 
 // =======
 // HELPERS
@@ -49,10 +49,6 @@ const biggestBag = ( g: Game ): Bag => [
 	max( map( ( b: Bag ) => b[ 1 ] )( g.subsets ) ) || 0,
 	max( map( ( b: Bag ) => b[ 2 ] )( g.subsets ) ) || 0,
 ];
-
-const id = ( g: Game ): number => g.id;
-
-const power = ( g: Game ): number => product( biggestBag( g ) );
 
 // ====
 // MAIN
